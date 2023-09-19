@@ -8,28 +8,6 @@ library(forcats)
 
 api_token <- yaml::read_yaml("secrets.yaml")$JETON_API
 
-# FONCTIONS ---------------------------------
-
-decennie_a_partir_annee <- function(annee) {
-  return(annee - annee %% 10)
-}
-
-fonction_de_stat_agregee <- function(a, b = "moyenne", ...) {
-  if (b == "moyenne") {
-    x <- mean(a, na.rm = TRUE, ...)
-  } else if (b == "ecart-type" || b == "sd") {
-    x <- sd(a, na.rm = TRUE, ...)
-  } else if (b == "variance") {
-    x <- var(a, na.rm = TRUE, ...)
-  }
-  return(x)
-}
-
-fonction_de_stat_agregee(rnorm(10))
-fonction_de_stat_agregee(rnorm(10), "ecart-type")
-fonction_de_stat_agregee(rnorm(10), "variance")
-
-
 # IMPORT DONNEES -----------------------------
 
 df <- readr::read_csv2(
@@ -100,3 +78,5 @@ df3 <- df3 %>%
   )
 
 MASS::polr(surf ~ cs1 + factor(ur), df3)
+
+fonction_de_stat_agregee()
