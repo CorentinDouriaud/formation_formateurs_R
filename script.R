@@ -8,6 +8,8 @@ library(forcats)
 
 api_token <- yaml::read_yaml("secrets.yaml")$JETON_API
 
+source("R/functions.R", encoding = "UTF-8")
+
 # IMPORT DONNEES -----------------------------
 
 df <- readr::read_csv2(
@@ -31,8 +33,8 @@ df$sexe <- df$sexe %>%
 
 summarise(group_by(df, aged), n())
 
-fonction_de_stat_agregee(df %>% filter(sexe == "Homme") %>% pull(aged))
-fonction_de_stat_agregee(df %>% filter(sexe == "Femme") %>% pull(aged))
+stats_agregees(df %>% filter(sexe == "Homme") %>% pull(aged))
+stats_agregees(df %>% filter(sexe == "Femme") %>% pull(aged))
 
 ## stats trans par statut =====================
 
@@ -78,5 +80,3 @@ df3 <- df3 %>%
   )
 
 MASS::polr(surf ~ cs1 + factor(ur), df3)
-
-fonction_de_stat_agregee()
